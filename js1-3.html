@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+
+  // タスク配列の初期値ーーーーーーーーーーーーーーーーーーー
+  const tasks = ["掃除","買い物","散歩"]; 
+  
+
+  // タスクを確認する関数ーーーーーーーーーーーーーーーー
+  const showTask = (tasks) => {
+    console.log("==============================");
+    console.log("現在持っているタスク一覧");
+    console.log("==============================");
+    for(let i = 0; i < tasks.length; i++){
+      console.log(i + " : " + tasks[i]);
+    }
+  }
+  // タスクを追加する関数ーーーーーーーーーーーーーーーーー
+  const addTask = (task) => {
+    tasks.push(task);
+    alert("新しいタスクを追加しました");
+  }
+  // タスクを削除する関数ーーーーーーーーーーーーーーーーーー
+  const deleteTask = (tasks) => {
+    let i = prompt("何番を削除しますか？");
+    alert(`${i}番の「${tasks[i]}」を削除しました`);
+    tasks.splice(i, 1);
+  }
+
+
+
+
+
+    showTask(tasks);
+    let task = prompt("タスクを入力してください");
+    addTask(task);
+
+    while(true){
+      showTask(tasks);
+      let input = prompt("「確認,追加,削除,終了」の４つのいずれかを入力してください");
+      switch (input){
+        case "確認":
+          showTask(tasks);
+          break;
+        case "追加":
+          task = prompt("タスクを入力してください");
+          addTask(task);
+          break;
+        case "削除":
+          deleteTask(tasks);
+          break;
+        }
+      if(input === "終了"){
+        alert("終了です");
+        break;
+      }
+    }
+
+  </script>
+</body>
+</html>
