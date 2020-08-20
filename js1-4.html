@@ -17,16 +17,16 @@
 
     // タスクを確認する関数ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
     const showTask = () => {
-        console.log("==============================");
-        console.log("現在持っているタスク一覧");
-        console.log("==============================");
-        tasks.forEach((task,i) => {
-          console.log(`${i} : 【内容】${task.content}、【ジャンル】${task.genre}`);
-          });
+      console.log("==============================");
+      console.log("現在持っているタスク一覧");
+      console.log("==============================");
+      tasks.forEach((task,i) => {
+        console.log(`${i} : 【内容】${task.content}、【ジャンル】${task.genre}`);
+      });
     };
 
     // タスクを追加する関数ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-      const addTask = () => {
+    const addTask = () => {
       let newContent  = prompt("タスクを入力してください");
       let newGenre = prompt("ジャンルを入力してください");
       let newTask = {content: newContent, genre: newGenre};
