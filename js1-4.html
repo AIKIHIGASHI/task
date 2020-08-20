@@ -34,18 +34,25 @@
     };
 
     // タスクを削除する関数ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-    const deleteTask = () => {
-      let i = prompt("何番を削除しますか？");
-      alert(`${i}番の「${tasks[i].content}」を削除しました`);
-      tasks.splice(i, 1);
+    const deleteTask = () => {     
+      while (true) {
+        let i = prompt("何番を削除しますか？");
+        if (!isNaN(i)) {
+          alert(`${i}番の「${tasks[i].content}」を削除しました`);
+          tasks.splice(i, 1);
+          break;
+        } else {
+          alert("半角数字にて入力してください");
+        }
+      }
     };
 
     showTask();
     addTask();
-    while(true){
+    while (true) {
       showTask();
       let input = prompt("「確認,追加,削除,終了」の４つのいずれかを入力してください");
-      switch (input){
+      switch (input) {
         case "確認":
           showTask();
           break;
@@ -56,7 +63,7 @@
           deleteTask();
           break;
         }
-      if(input === "終了"){
+      if (input === "終了") {
         alert("終了です");
         break;
       }
