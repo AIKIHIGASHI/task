@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <h1>FizzBuzz問題</h1>
+  <div>FizzNum : <input id="fizz" type="text" placeholder="整数値を入力してください" size="22"></div>
+  <div>BuzzNum : <input id="buzz" type="text" placeholder="整数値を入力してください" size="22"></div>
+  <button>実行</button>
+
+  <p>【出力】</p>
+  <div id = 'output'></div>
+
+  <script>
+    document.querySelector('button').addEventListener('click', () => {
+      output.innerHTML = ''
+
+      fizzbuzzText = ( text, i ) => {
+        const output = document.getElementById('output');
+        const fizzbuzz = document.createElement('div')
+        fizzbuzz.textContent = `${text}  ${i}`;
+        output.appendChild(fizzbuzz);
+      }
+      
+      if ( fizz.value === '' || buzz.value === '' ) {
+        fizzbuzzText( '値を入力してください',  '' );
+      } else if ( Number.isInteger(Number(fizz.value)) && Number.isInteger(Number(buzz.value)) ) {
+        for ( let i = 1; i < 100; i++ ) {
+          if ( i % fizz.value === 0 && i % buzz.value === 0 ) {
+            fizzbuzzText( 'FizzBuzz', i );
+          } else if ( i % fizz.value === 0 ) {
+            fizzbuzzText( 'Fizz'    , i );
+          } else if ( i % buzz.value === 0 ) {
+            fizzbuzzText( 'Buzz'    , i );
+          }
+        }
+      } else {
+        fizzbuzzText( '整数値を入力してください', '' );
+      }     
+    });
+      
+  </script>
+</body>
+</html>
