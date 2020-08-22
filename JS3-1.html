@@ -39,6 +39,7 @@
       const td1      = document.createElement('td');
       const td2      = document.createElement('td');
       const td3      = document.createElement('td');
+      const td4      = document.createElement('td');
       const button1  = document.createElement('button');
       const button2  = document.createElement('button');
 
@@ -46,8 +47,9 @@
       tr.appendChild(td1);
       tr.appendChild(td2);
       tr.appendChild(td3);
+      tr.appendChild(td4);
       td3.appendChild(button1);
-      td3.appendChild(button2);
+      td4.appendChild(button2);
 
       td1.textContent     = trArray.length - 1;
       td2.textContent     = task.value;
