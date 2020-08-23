@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>ToDoリスト</h1>
+    <input type="radio" name="gender">すべて
+    <input type="radio" name="gender">作業中
+    <input type="radio" name="gender">完了
+
+    <table>
+    <thead>
+        <tr>
+        <th>ID</th>
+        <th>コメント</th>
+        <th>状態</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    </table>
+
+    <h2>新規タスクの追加</h2>
+    <input id="task" type="text">
+    <button id="add">追加</button>
+
+
+
+    <script>
+
+    const todos = [];
+
+    document.getElementById('add').addEventListener('click', () => {
+        const todo = {
+            task:   task.value,
+            status: '作業中'
+        };
+
+        const tbody    = document.querySelector('tbody');
+        const tr       = document.createElement('tr');
+        const td1      = document.createElement('td');
+        const td2      = document.createElement('td');
+        const td3      = document.createElement('td');
+        const td4      = document.createElement('td');
+        const button1  = document.createElement('button');
+        const button2  = document.createElement('button');
+
+        tbody.appendChild(tr);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        td3.appendChild(button1);
+        td4.appendChild(button2);
+
+        td1.textContent     = todos.length;
+        td2.textContent     = todo.task;
+        button1.textContent = todo.status;
+        button2.textContent = '削除';
+        todos.push(todo);
+        task.value = '';
+        });
+
+    </script>
+</body>
+</html>
