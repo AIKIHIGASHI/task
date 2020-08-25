@@ -1,99 +1,95 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
 
-    <h1>ToDoリスト</h1>
-    <input type="radio" name="gender">すべて
-    <input type="radio" name="gender">作業中
-    <input type="radio" name="gender">完了
+        <h1>ToDoリスト</h1>
+        <input type="radio" name="gender">すべて
+        <input type="radio" name="gender">作業中
+        <input type="radio" name="gender">完了
 
-    <table>
-    <thead>
-        <th>ID</th>
-        <th>コメント</th>
-        <th>状態</th>
-    </thead>
-    <tbody>
-    </tbody>
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>コメント</th>
+                    <th>状態</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
 
-    <h2>新規タスクの追加</h2>
-    <input id="task" type="text">
-    <button id="add">追加</button>
+        <h2>新規タスクの追加</h2>
+        <input id="task" type="text">
+        <button id="add">追加</button>
 
+        <script>
 
+            const todos = [];
+            
+            deleteTask = (e) => {
+                const taskList = Array.from(document.querySelectorAll('.taskList'));
+                const taskId   = Array.from(document.querySelectorAll('.id'));
+                const btnArray = Array.from(document.querySelectorAll('.delete'));
+                const index    = btnArray.findIndex(btn => btn === e.target);
+                taskList[index].remove();
+                taskId.splice(index, 1);
+                todos.splice(index, 1);
+                for (let i = 0; i < taskId.length; i++) {
+                    taskId[i].textContent = i;
+                }
+            }
 
-    <script>
+            const addButton = document.getElementById('add')
+            addButton.addEventListener('click', () => {
+                const todo = {
+                    task: task.value,
+                    status: '作業中'
+                };
 
-    const todos = [];
-    
-    function deleteTask(e) {
-        const tbodyGet       = document.querySelector('tbody');
-        const trCreate       = document.createElement('tr');
-        const td1Create      = document.createElement('td');
-        const td2Create      = document.createElement('td');
-        const td3Create      = document.createElement('td');
-        const td4Create      = document.createElement('td');
-        const button1Create  = document.createElement('button');
-        const button2Create  = document.createElement('button');
+                const tbodyGet       = document.querySelector('tbody');
+                const trCreate       = document.createElement('tr');
+                const td1Create      = document.createElement('td');
+                const td2Create      = document.createElement('td');
+                const td3Create      = document.createElement('td');
+                const td4Create      = document.createElement('td');
+                const button1Create  = document.createElement('button');
+                const button2Create  = document.createElement('button');
+
+                if (task.value === '') {
+                    alert('タスクを入力してください');
+                } else {
+                    tbodyGet.appendChild(trCreate);
+                    trCreate.appendChild(td1Create);
+                    trCreate.appendChild(td2Create);
+                    trCreate.appendChild(td3Create);
+                    trCreate.appendChild(td4Create);
+                    td3Create.appendChild(button1Create);
+                    td4Create.appendChild(button2Create);
+
+                    td1Create.classList.add('id');
+                    trCreate.classList.add('taskList');
+                    button2Create.classList.add('delete');
+                    
+                    td1Create.textContent     = todos.length;
+                    td2Create.textContent     = todo.task;
+                    button1Create.textContent = todo.status;
+                    button2Create.textContent = '削除';
+                    todos.push(todo);
+                    task.value = '';
+
+                    button2Create.addEventListener('click', deleteTask);
+                }
+            });
+
+        </script>
         
-        const taskList = Array.from(document.querySelectorAll('.taskList'));
-        const taskId   = Array.from(document.querySelectorAll('.id'));
-        const btnArray = Array.from(document.querySelectorAll('.delete'));
-        const index    = btnArray.findIndex(btn => btn === e.target);
-        taskList[index].remove();
-        taskId.splice(index, 1);
-        todos.splice(index, 1);
-        for (let i = 0; i < taskId.length; i++){
-            taskId[i].textContent = i;
-        }
-    }
-
-    document.getElementById('add').addEventListener('click', () => {
-        const todo = {
-            task: task.value,
-            status: '作業中'
-        };
-
-        const tbodyGet       = document.querySelector('tbody');
-        const trCreate       = document.createElement('tr');
-        const td1Create      = document.createElement('td');
-        const td2Create      = document.createElement('td');
-        const td3Create      = document.createElement('td');
-        const td4Create      = document.createElement('td');
-        const button1Create  = document.createElement('button');
-        const button2Create  = document.createElement('button');
-
-        tbodyGet.appendChild(trCreate);
-        trCreate.appendChild(td1Create);
-        trCreate.appendChild(td2Create);
-        trCreate.appendChild(td3Create);
-        trCreate.appendChild(td4Create);
-        td3Create.appendChild(button1Create);
-        td4Create.appendChild(button2Create);
-
-        td1Create.classList.add('id');
-        trCreate.classList.add('taskList');
-        button2Create.classList.add('delete');
-        
-        td1Create.textContent     = todos.length;
-        td2Create.textContent     = todo.task;
-        button1Create.textContent = todo.status;
-        button2Create.textContent = '削除';
-        todos.push(todo);
-        task.value = '';
-
-        button2Create.addEventListener('click', deleteTask);
-        });
-
-    </script>
-    
-</body>
+    </body>
 </html>
 
 
