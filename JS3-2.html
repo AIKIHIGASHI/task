@@ -34,9 +34,9 @@
             
             deleteTask = (e) => {
                 const taskList = Array.from(document.querySelectorAll('.taskList'));
-                const taskId   = Array.from(document.querySelectorAll('.id'));
+                const taskId = Array.from(document.querySelectorAll('.id'));
                 const btnArray = Array.from(document.querySelectorAll('.delete'));
-                const index    = btnArray.findIndex(btn => btn === e.target);
+                const index = btnArray.findIndex(btn => btn === e.target);
                 taskList[index].remove();
                 taskId.splice(index, 1);
                 todos.splice(index, 1);
@@ -52,14 +52,14 @@
                     status: '作業中'
                 };
 
-                const tbodyGet       = document.querySelector('tbody');
-                const trCreate       = document.createElement('tr');
-                const td1Create      = document.createElement('td');
-                const td2Create      = document.createElement('td');
-                const td3Create      = document.createElement('td');
-                const td4Create      = document.createElement('td');
-                const button1Create  = document.createElement('button');
-                const button2Create  = document.createElement('button');
+                const tbodyGet = document.querySelector('tbody');
+                const trCreate = document.createElement('tr');
+                const td1Create = document.createElement('td');
+                const td2Create = document.createElement('td');
+                const td3Create = document.createElement('td');
+                const td4Create = document.createElement('td');
+                const button1Create = document.createElement('button');
+                const button2Create = document.createElement('button');
 
                 if (task.value === '') {
                     alert('タスクを入力してください');
@@ -76,8 +76,8 @@
                     trCreate.classList.add('taskList');
                     button2Create.classList.add('delete');
                     
-                    td1Create.textContent     = todos.length;
-                    td2Create.textContent     = todo.task;
+                    td1Create.textContent = todos.length;
+                    td2Create.textContent = todo.task;
                     button1Create.textContent = todo.status;
                     button2Create.textContent = '削除';
                     todos.push(todo);
