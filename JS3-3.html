@@ -32,7 +32,7 @@
 
             const todos = [];
             
-            deleteTask = (e) => {
+            const deleteTask = (e) => {
                 const taskList = Array.from(document.querySelectorAll('.taskList'));
                 const taskId = Array.from(document.querySelectorAll('.id'));
                 const btnArray = Array.from(document.querySelectorAll('.delete'));
@@ -45,7 +45,7 @@
                 }
             }
 
-            changeStatus = (e) => {
+            const changeStatus = (e) => {
                 const statusArray = Array.from(document.querySelectorAll('.status'));
                 const index = statusArray.findIndex(status => status === e.target);
                 switch (todos[index].status) {
@@ -60,13 +60,14 @@
                 }
             }
 
+            const task = document.getElementById('task');
             const addButton = document.getElementById('add')
             addButton.addEventListener('click', () => {
                 const todo = {
                     task: task.value,
                     status: '作業中'
                 };
-
+                
                 const tbodyGet = document.querySelector('tbody');
                 const trCreate = document.createElement('tr');
                 const td1Create = document.createElement('td');
