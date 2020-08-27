@@ -8,9 +8,9 @@
     <body>
 
         <h1>ToDoリスト</h1>
-        <input type="radio" name="gender">すべて
-        <input type="radio" name="gender">作業中
-        <input type="radio" name="gender">完了
+        <input type="radio" name="type">すべて
+        <input type="radio" name="type">作業中
+        <input type="radio" name="type">完了
 
         <table>
             <thead>
@@ -31,6 +31,11 @@
         <script>
 
             const todos = [];
+
+            const TYPE = {
+                DOING: '作業中',
+                DONE: '完了'
+            }
             
             const deleteTask = (e) => {
                 const taskList = Array.from(document.querySelectorAll('.taskList'));
@@ -49,13 +54,13 @@
                 const statusArray = Array.from(document.querySelectorAll('.status'));
                 const index = statusArray.findIndex(status => status === e.target);
                 switch (todos[index].status) {
-                    case '作業中':
-                        todos[index].status = '完了';
-                        statusArray[index].textContent = '完了';
+                    case TYPE.DOING:
+                        todos[index].status = TYPE.DONE;
+                        statusArray[index].textContent = TYPE.DONE;
                         break;
-                    case '完了':
-                        todos[index].status = '作業中';
-                        statusArray[index].textContent = '作業中';
+                    case TYPE.DONE:
+                        todos[index].status = TYPE.DOING;
+                        statusArray[index].textContent = TYPE.DOING;
                         break;
                 }
             }
@@ -65,7 +70,7 @@
             addButton.addEventListener('click', () => {
                 const todo = {
                     task: task.value,
-                    status: '作業中'
+                    status: TYPE.DOING
                 };
                 
                 const tbodyGet = document.querySelector('tbody');
