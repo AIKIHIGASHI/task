@@ -43,7 +43,7 @@
             const doing = document.getElementsByClassName('doing');
             const done = document.getElementsByClassName('done');
             
-            const styleDisplayRoop = (array, value) => {
+            const styleDisplayLoop = (array, value) => {
                 for (let i = 0; i < array.length; i++) {
                     array[i].style.display = value;
                 }
@@ -69,29 +69,29 @@
                         todos[index].status = TYPE.DONE;
                         statusArray[index].textContent = TYPE.DONE;
                         taskList[index].classList.replace('doing','done');
-                        styleDisplayRoop(done, 'none');
+                        styleDisplayLoop(done, 'none');
                         break;
                     case TYPE.DONE:
                         todos[index].status = TYPE.DOING;
                         statusArray[index].textContent = TYPE.DOING;
                         taskList[index].classList.replace('done','doing');
-                        styleDisplayRoop(doing, 'none');
+                        styleDisplayLoop(doing, 'none');
                         break;
                 }
                 if (radio[0].checked) {
-                    styleDisplayRoop(taskList, '');
+                    styleDisplayLoop(taskList, '');
                 }
             }
 
             const selectRadio = () => {
                 if (radio[0].checked) {
-                    styleDisplayRoop(taskList, '');
+                    styleDisplayLoop(taskList, '');
                 } else if (radio[1].checked) {
-                    styleDisplayRoop(done, 'none');
-                    styleDisplayRoop(doing, '');
+                    styleDisplayLoop(done, 'none');
+                    styleDisplayLoop(doing, '');
                 } else if (radio[2].checked) {
-                    styleDisplayRoop(doing, 'none');
-                    styleDisplayRoop(done, '');
+                    styleDisplayLoop(doing, 'none');
+                    styleDisplayLoop(done, '');
                 }
             }
 
@@ -132,7 +132,7 @@
                     task.value = '';
 
                     if (radio[2].checked) {
-                        styleDisplayRoop(doing, 'none');
+                        styleDisplayLoop(doing, 'none');
                     }
 
                     button1Create.addEventListener('click', changeStatus);
