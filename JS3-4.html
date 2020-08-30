@@ -8,9 +8,9 @@
     <body>
 
         <h1>ToDoリスト</h1>
-        <input class="radio" type="radio" name="type" onchange="selectRadio()" checked="checked">すべて
-        <input class="radio" type="radio" name="type" onchange="selectRadio()">作業中
-        <input class="radio" type="radio" name="type" onchange="selectRadio()">完了
+        <input id="allRadio" class="radio" type="radio" name="type" onchange="selectRadio()" checked="checked">すべて
+        <input id="doingRadio" class="radio" type="radio" name="type" onchange="selectRadio()">作業中
+        <input id="doneRadio" class="radio" type="radio" name="type" onchange="selectRadio()">完了
 
         <table>
             <thead>
@@ -39,6 +39,9 @@
             const tbodyGet = document.querySelector('tbody');
             const task = document.getElementById('task');
             const radio = document.getElementsByClassName('radio');
+            const allRadio = document.getElementById('allRadio');
+            const doingRadio = document.getElementById('doingRadio');
+            const doneRadio = document.getElementById('doneRadio');
             const taskList = document.getElementsByClassName('taskList');
             const doing = document.getElementsByClassName('doing');
             const done = document.getElementsByClassName('done');
@@ -78,18 +81,18 @@
                         styleDisplayLoop(doing, 'none');
                         break;
                 }
-                if (radio[0].checked) {
+                if (allRadio.checked) {
                     styleDisplayLoop(taskList, '');
                 }
             }
 
             const selectRadio = () => {
-                if (radio[0].checked) {
+                if (allRadio.checked) {
                     styleDisplayLoop(taskList, '');
-                } else if (radio[1].checked) {
+                } else if (doingRadio.checked) {
                     styleDisplayLoop(done, 'none');
                     styleDisplayLoop(doing, '');
-                } else if (radio[2].checked) {
+                } else if (doneRadio.checked) {
                     styleDisplayLoop(doing, 'none');
                     styleDisplayLoop(done, '');
                 }
@@ -131,7 +134,7 @@
                     todos.push(todo);
                     task.value = '';
 
-                    if (radio[2].checked) {
+                    if (doneRadio.checked) {
                         styleDisplayLoop(doing, 'none');
                     }
 
