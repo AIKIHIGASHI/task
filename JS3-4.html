@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+
+        <h1>ToDoリスト</h1>
+        <input id="allRadio" class="radio" type="radio" name="type" onchange="selectRadio()" checked="checked">すべて
+        <input id="doingRadio" class="radio" type="radio" name="type" onchange="selectRadio()">作業中
+        <input id="doneRadio" class="radio" type="radio" name="type" onchange="selectRadio()">完了
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>コメント</th>
+                    <th>状態</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <h2>新規タスクの追加</h2>
+        <input id="task" type="text">
+        <button id="add">追加</button>
+
+        <script>
+
+            const todos = [];
+            const TYPE = {
+                DOING: '作業中',
+                DONE: '完了'
+            };
+            const addButton = document.getElementById('add');
+            const tbodyGet = document.querySelector('tbody');
+            const task = document.getElementById('task');
+            const radio = document.getElementsByClassName('radio');
+            const allRadio = document.getElementById('allRadio');
+            const doingRadio = document.getElementById('doingRadio');
+            const doneRadio = document.getElementById('doneRadio');
+            const taskList = document.getElementsByClassName('taskList');
+            const doing = document.getElementsByClassName('doing');
+            const done = document.getElementsByClassName('done');
+            
+            const styleDisplayLoop = (array, value) => {
+                for (let i = 0; i < array.length; i++) {
+                    array[i].style.display = value;
+                }
+            }
+            
+            const deleteTask = (e) => {
+                const taskId = Array.from(document.querySelectorAll('.id'));
+                const btnArray = Array.from(document.querySelectorAll('.delete'));
+                const index = btnArray.findIndex(btn => btn === e.target);
+                taskList[index].remove();
+                taskId.splice(index, 1);
+                todos.splice(index, 1);
+                taskId.forEach((task, i) => {
+                    taskId[i].textContent = i;
+                })
+            }
+
+            const changeStatus = (e) => {
+                const statusArray = Array.from(document.getElementsByClassName('status'));
+                const index = statusArray.findIndex(status => status === e.target);
+                switch (todos[index].status) {
+                    case TYPE.DOING:
+                        todos[index].status = TYPE.DONE;
+                        statusArray[index].textContent = TYPE.DONE;
+                        taskList[index].classList.replace('doing','done');
+                        styleDisplayLoop(done, 'none');
+                        break;
+                    case TYPE.DONE:
+                        todos[index].status = TYPE.DOING;
+                        statusArray[index].textContent = TYPE.DOING;
+                        taskList[index].classList.replace('done','doing');
+                        styleDisplayLoop(doing, 'none');
+                        break;
+                }
+                if (allRadio.checked) {
+                    styleDisplayLoop(taskList, '');
+                }
+            }
+
+            const selectRadio = () => {
+                if (allRadio.checked) {
+                    styleDisplayLoop(taskList, '');
+                } else if (doingRadio.checked) {
+                    styleDisplayLoop(done, 'none');
+                    styleDisplayLoop(doing, '');
+                } else if (doneRadio.checked) {
+                    styleDisplayLoop(doing, 'none');
+                    styleDisplayLoop(done, '');
+                }
+            }
+
+            addButton.addEventListener('click', () => {
+                const todo = {
+                    task: task.value,
+                    status: TYPE.DOING
+                };
+                const trCreate = document.createElement('tr');
+                const td1Create = document.createElement('td');
+                const td2Create = document.createElement('td');
+                const td3Create = document.createElement('td');
+                const td4Create = document.createElement('td');
+                const button1Create = document.createElement('button');
+                const button2Create = document.createElement('button');
+
+                if (task.value === '') {
+                    alert('タスクを入力してください');
+                } else {
+                    tbodyGet.appendChild(trCreate);
+                    trCreate.appendChild(td1Create);
+                    trCreate.appendChild(td2Create);
+                    trCreate.appendChild(td3Create);
+                    trCreate.appendChild(td4Create);
+                    td3Create.appendChild(button1Create);
+                    td4Create.appendChild(button2Create);
+
+                    td1Create.classList.add('id');
+                    trCreate.classList.add('taskList', 'doing');
+                    button1Create.classList.add('status');
+                    button2Create.classList.add('delete');
+                    
+                    td1Create.textContent = todos.length;
+                    td2Create.textContent = todo.task;
+                    button1Create.textContent = todo.status;
+                    button2Create.textContent = '削除';
+                    todos.push(todo);
+                    task.value = '';
+
+                    if (doneRadio.checked) {
+                        styleDisplayLoop(doing, 'none');
+                    }
+
+                    button1Create.addEventListener('click', changeStatus);
+                    button2Create.addEventListener('click', deleteTask);
+                }
+            });
+
+        </script>
+        
+    </body>
+</html>
