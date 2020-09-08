@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            #message{
+                margin-top: 20px;
+                border-top: 1px solid gray;
+                border-bottom: 1px solid gray;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>ようこそ</h1>
+        <div><b id="genre"></b></div>
+        <div><b id="difficulty"></b></div>
+        <div id="message">以下のボタンをクリック</div>
+        </br>
+        <div id="buttonBox">
+            <button id="start">開始</button>
+        </div>
+        
+        <script>
+            class Quiz {
+                constructor(quizData) {
+                    this.currentNum = 0;
+                    this.score = 0;
+                    this.quizResults = quizData.results;
+                }
+
+                doneQuiz() {
+                    while (buttonBox.firstChild) {
+                        buttonBox.removeChild(buttonBox.firstChild);
+                    }
+                    const div = document.createElement('div');
+                    const button = document.createElement('button');
+                    buttonBox.appendChild(div);
+                    div.appendChild(button);
+                    genre.textContent = '';
+                    difficulty.textContent = '';
+                    h1.textContent = `あなたの正答数は${this.score}です！`;
+                    message.textContent = '再度チャレンジしたい場合は以下をクリック！';
+                    button.textContent = 'ホームに戻る';
+                    button.addEventListener('click', () => {
+                        location.reload();
+                    });
+                }
+
+                checkAnswer(btn) {
+                    if (btn.textContent === this.quizResults[this.currentNum].correct_answer) {
+                        this.score++;
+                    }
+                }
+
+                nextQuiz() {
+                    const btnArr = Array.from(document.querySelectorAll('button'));
+                    btnArr.forEach(btn => {
+                        btn.addEventListener("click", () => {
+                            this.checkAnswer(btn);
+                            if (this.currentNum === this.quizResults.length - 1 ) {
+                                this.doneQuiz();
+                            } else {
+                                this.currentNum++;
+                                this.setQuiz();
+                            }
+                        });
+                    });
+                }
+
+                shuffleQuiz() {
+                    const arr = this.quizResults[this.currentNum].incorrect_answers;
+                    for (var i = arr.length - 1; i > 0; i--) {
+                    let j = Math.floor(Math.random() * (i + 1));
+                    [arr[j], arr[i]] = [arr[i], arr[j]];
+                    }
+                }
+
+                setQuiz() {
+                    const quiz = this.quizResults[this.currentNum];
+                    while (buttonBox.firstChild) {
+                        buttonBox.removeChild(buttonBox.firstChild);
+                    }
+                    quiz.incorrect_answers.push(quiz.correct_answer);
+                    this.shuffleQuiz();
+                    for (let i = 0; i < quiz.incorrect_answers.length; i++) {
+                        const div = document.createElement('div');
+                        const button = document.createElement('button');
+                        buttonBox.appendChild(div);
+                        div.appendChild(button);
+                        button.textContent = quiz.incorrect_answers[i];
+                    }
+                    message.textContent = quiz.question;
+                    h1.textContent = `問題${this.currentNum + 1}`;
+                    genre.textContent = `【ジャンル】${quiz.category}`;
+                    difficulty.textContent = `【難易度】${quiz.difficulty}`;
+                    this.nextQuiz();
+                }
+            }
+
+            const h1 = document.querySelector('h1');
+            const massage = document.getElementById('message');
+            const buttonBox = document.getElementById('buttonBox');
+            const start = document.getElementById('start');
+            const genre = document.getElementById('genre');
+            const difficulty = document.getElementById('difficulty');
+
+            start.addEventListener('click', async () => {
+                h1.textContent = '取得中';
+                message.textContent = '少々お待ち下さい';
+                start.remove();
+                const res = await fetch('https://opentdb.com/api.php?amount=10&type=multiple');
+                const quizData = await res.json();
+                const quiz = new Quiz(quizData);
+                quiz.setQuiz();
+            });
+
+        </script>
+    </body>
+</html>
