@@ -17,7 +17,7 @@
         <div><b id="genre"></b></div>
         <div><b id="difficulty"></b></div>
         <div id="message">以下のボタンをクリック</div>
-        </br>
+        <br>
         <div id="buttonBox">
             <button id="start">開始</button>
         </div>
@@ -69,11 +69,11 @@
                     });
                 }
 
-                shuffleQuiz() {
+                shuffleChoices() {
                     const arr = this.quizResults[this.currentNum].incorrect_answers;
-                    for (var i = arr.length - 1; i > 0; i--) {
-                    let j = Math.floor(Math.random() * (i + 1));
-                    [arr[j], arr[i]] = [arr[i], arr[j]];
+                    for (let i = arr.length - 1; i > 0; i--) {
+                        let j = Math.floor(Math.random() * (i + 1));
+                        [arr[j], arr[i]] = [arr[i], arr[j]];
                     }
                 }
 
@@ -83,7 +83,7 @@
                         buttonBox.removeChild(buttonBox.firstChild);
                     }
                     quiz.incorrect_answers.push(quiz.correct_answer);
-                    this.shuffleQuiz();
+                    this.shuffleChoices();
                     for (let i = 0; i < quiz.incorrect_answers.length; i++) {
                         const div = document.createElement('div');
                         const button = document.createElement('button');
@@ -100,7 +100,7 @@
             }
 
             const h1 = document.querySelector('h1');
-            const massage = document.getElementById('message');
+            const message = document.getElementById('message');
             const buttonBox = document.getElementById('buttonBox');
             const start = document.getElementById('start');
             const genre = document.getElementById('genre');
